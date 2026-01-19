@@ -1,99 +1,103 @@
-print("Your welcome In the library")
+print("Welcome In the Library")
 
-# username = input("enter username : ")
-# password = input("enter password : ")
+print("Enter 1 for Librarian")
+print("Enter 2 for Manager")
 
-print("enter 1 for libraian\n enter 2 for manager")
-user = int(input("enter choice:"))
+user = int(input("Enter choice: "))
 
-if user==1:
+# ---------------- LIBRARIAN ----------------
+if user == 1:
 
-    print("please select,what you want to do")
+    issued_books = []
 
-    print("=> (1) for saw a library books")
-    print("=> (2) for issue a book for reading")
-    print("=> (3) for return a issue book ")
-    print("=> (4) for renew a issue book \n")
+    while True:
+        print("\nPlease select what you want to do")
+        print("1. View library books")
+        print("2. Issue a book")
+        print("3. Return a book")
+        print("4. Renew a book")
+        print("-1. Exit")
 
-    choice = int(input("plzz enter your choice here : "))
-    print()
+        choice = int(input("Enter your choice: "))
 
-    library_books = ["1.To Kill a Mockingbird","2.Pride and Prejudice", "3.The Great Gatsby", "4.1984", "5.The Lord of the Rings", "6.The Little Prince", "7.A Tale of Two Cities", "8.Dune","9.modern hits","10.The Silent Patient"]
+        library_books = ["1.To Kill a Mockingbird","2.Pride and Prejudice", "3.The Great Gatsby", "4.1984", "5.The Lord of the Rings", "6.The Little Prince", "7.A Tale of Two Cities", "8.Dune","9.modern hits","10.The Silent Patient"]
 
-    if choice == 1:
-        print("\nAvailable Library Books:\n")
-        for book in library_books:
-            print(book)
+        if choice == 1:
+            for i in library_books:
+                print(i)
 
-    elif choice == 2:
-        issued_books = []
-        book_name = input("Enter book name to issue: ")
-        if book_name in library_books:
-            library_books.remove(book_name)
+        elif choice == 2:
+            book_name = input("Enter book name to issue: ")
             issued_books.append(book_name)
+            print("Book issued successfully")
+
+        elif choice == 3:
+            book_name = input("Enter book name to return: ")
+            if book_name in issued_books:
+                issued_books.remove(book_name)
+                print("Book returned successfully")
+            else:
+                print("This book was not issued")
+
+        elif choice == 4:
+            book_name = input("Enter book name to renew: ")
+            if book_name in issued_books:
+                print("Book renewed successfully")
+            else:
+                print("Book not issued, cannot renew")
+
+        elif choice == -1:
+            print("Exiting Librarian Menu")
+            print("thank you visiting")
+            break   
+
         else:
-            print("Book not available")
+            print("Invalid choice")
 
-    elif choice == 3:
-        book_name = input("Enter book name to return: ")
+# ---------------- MANAGER ----------------
+elif user == 2:
 
-        print("issued book:")
-        for item in issued_books:
-            print(item)
+    library_books = [
+        "To Kill a Mockingbird",
+        "Pride and Prejudice",
+        "The Great Gatsby",
+        "1984",
+        "The Lord of the Rings"
+    ]
 
-        if book_name in issued_books:
-            issued_books.remove(book_name)
-            library_books.append(book_name)
-            print("Book returned successfully")
+    while True:
+        print("\nManager Menu")
+        print("1. View Total Books")
+        print("2. Insert Book")
+        print("3. Delete Book")
+        print("-1. Exit")
+
+        choice = int(input("Enter your choice: "))
+
+        if choice == 1:
+            for book in library_books:
+                print(book)
+
+        elif choice == 2:
+            new_book = input("Enter book name to insert: ")
+            library_books.append(new_book)
+            print("Book added successfully")
+
+        elif choice == 3:
+            del_book = input("Enter book name to delete: ")
+            if del_book in library_books:
+                library_books.remove(del_book)
+                print("Book deleted successfully")
+            else:
+                print("Book not found")
+
+        elif choice == -1:
+            print("Exiting Manager Menu")
+            print("thank you visiting")
+            break  
+
         else:
-            print("This book was not issued")
+            print("Invalid choice")
 
-    elif choice == 4:
-        book_name = input("Enter book name to renew: ")
-
-        if book_name in issued_books:
-            print("Book renewed successfully")
-        else:
-            print("Book not issued, cannot renew")
-
-    else:
-        print("Invalid choice")
-
-elif user==2:
-    print("\n Manager Login Successful , plz select your action")
-
-    print("1. View Total Books")
-    print("2. insert book")
-    print("3. delete book")
-
-    library_books = ["1.To Kill a Mockingbird","2.Pride and Prejudice", "3.The Great Gatsby", "4.1984", "5.The Lord of the Rings", "6.The Little Prince", "7.A Tale of Two Cities", "8.Dune","9.modern hits","10.The Silent Patient"]
-
-    choice = int(input("Enter your choice: "))
-
-    if choice == 1:
-        print("\n Library Books:\n")
-        for book in library_books:
-            print(book)
-
-    if choice == 2:
-        new_book = input("Enter book name to insert: ")
-        library_books.append(new_book)
-        print("\nBook added successfully!\n")
-        print(library_books)
-
-    elif choice == 3:
-        del_book = input("Enter book name to delete: ")
-        if del_book in library_books:
-            library_books.remove(del_book)
-            print("\nBook deleted successfully!\n")
-        else:
-            print("\nBook not found!")
-    else:
-        print("Invalid")
 else:
-    print("Invalid")
-
-
-
-
-
+    print("Invalid user selection")
