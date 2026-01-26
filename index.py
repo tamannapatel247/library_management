@@ -8,6 +8,19 @@ user = int(input("Enter choice: "))
 # ---------------- LIBRARIAN ----------------
 if user == 1:
 
+    library_books = [
+        "To Kill a Mockingbird",
+        "Pride and Prejudice",
+        "The Great Gatsby",
+        "1984",
+        "The Lord of the Rings",
+        "The Little Prince",
+        "A Tale of Two Cities",
+        "Dune",
+        "Modern Hits",
+        "The Silent Patient"
+    ]
+
     issued_books = []
 
     while True:
@@ -20,21 +33,25 @@ if user == 1:
 
         choice = int(input("Enter your choice: "))
 
-        library_books = ["1.To Kill a Mockingbird","2.Pride and Prejudice", "3.The Great Gatsby", "4.1984", "5.The Lord of the Rings", "6.The Little Prince", "7.A Tale of Two Cities", "8.Dune","9.modern hits","10.The Silent Patient"]
-
         if choice == 1:
-            for i in library_books:
-                print(i)
+            print("\nAvailable Books:")
+            for book in library_books:
+                print(book)
 
         elif choice == 2:
             book_name = input("Enter book name to issue: ")
-            issued_books.append(book_name)
-            print("Book issued successfully")
+            if book_name in library_books:
+                issued_books.append(book_name)
+                library_books.remove(book_name)
+                print("Book issued successfully")
+            else:
+                print("Book not found in library")
 
         elif choice == 3:
             book_name = input("Enter book name to return: ")
             if book_name in issued_books:
                 issued_books.remove(book_name)
+                library_books.append(book_name)
                 print("Book returned successfully")
             else:
                 print("This book was not issued")
@@ -48,8 +65,8 @@ if user == 1:
 
         elif choice == -1:
             print("Exiting Librarian Menu")
-            print("thank you visiting")
-            break   
+            print("Thank you for visiting")
+            break
 
         else:
             print("Invalid choice")
@@ -57,13 +74,17 @@ if user == 1:
 # ---------------- MANAGER ----------------
 elif user == 2:
 
-    library_books = [
-        "To Kill a Mockingbird",
-        "Pride and Prejudice",
-        "The Great Gatsby",
-        "1984",
-        "The Lord of the Rings"
-    ]
+    library_books = ["1.To Kill a Mockingbird",
+                     "2.Pride and Prejudice", 
+                     "3.The Great Gatsby", 
+                     "4.1984",
+                     "5.The Lord of the Rings", 
+                     "6.The Little Prince", 
+                     "7.A Tale of Two Cities", 
+                     "8.Dune",
+                     "9.modern hits",
+                     "10.The Silent Patient"]
+
 
     while True:
         print("\nManager Menu")
