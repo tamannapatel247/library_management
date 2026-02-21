@@ -1,3 +1,5 @@
+import datetime
+import random
 librarians = {}
 managers = {}
 
@@ -13,6 +15,22 @@ library_books = [
     "Modern Hits",
     "The Silent Patient"
 ]
+
+try:
+    file = open("users.txt", "r")
+    for line in file:
+        name, password, role = line.strip().split(",")
+
+        if role == "Librarian":
+            librarians[name] = password
+        elif role == "Manager":
+            managers[name] = password
+
+    file.close()
+
+except FileNotFoundError:
+    print("User file not found. It will be created automatically.")
+
 
 while True:
     print("Welcome In the Library")
@@ -31,17 +49,22 @@ while True:
 
         category = int(input("Enter choice: "))
 
+        file = open("users.txt", "a")
+
         if category == 1:
             librarians[name] = password
+            file.write(f"{name},{password},Librarian\n")
             print("Librarian registered successfully")
 
         elif category == 2:
             managers[name] = password
+            file.write(f"{name},{password},Manager\n")
             print("Manager registered successfully")
 
         else:
             print("Invalid category")
-            continue
+
+        file.close()
 
     elif u_v == "LOGIN":
         print("\n--- Login ---")
@@ -83,10 +106,23 @@ while True:
 
                 elif choice == 2:
                     book_name = input("Enter book name to issue: ")
+
                     if book_name in library_books:
+                        issue_date = datetime.datetime.now()
+                        due_date = issue_date + datetime.timedelta(days=7)
+
+                        issue_str = issue_date.strftime("%d-%m-%y")
+                        due_str = due_date.strftime("%d-%m-%y")
+
+                        file = open("isuued_books.txt","a")
+                        file.write(f"{login_name},{book_name},{issue_str},{due_str}\n")
+                        file.close()
+
                         issued_books.append(book_name)
                         library_books.remove(book_name)
                         print("Book issued successfully")
+                        print("Issue Date:", issue_str)
+                        print("Return Before:", due_str)
                     else:
                         print("Book not found in library")
 
